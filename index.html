@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://unpkg.com/string-similarity/umd/string-similarity.min.js"></script>
+    <title>HAT: .har API tree</title>
+    <meta name="author" content="Eidenis Kasperavičius" />
+    <link rel="icon" href="./favicon.ico" />
+    <style>
+      #tree div {
+        display: inline;
+      }
+
+      .requestsLink {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      td {
+        vertical-align: top;
+      }
+
+      #tree {
+        overflow-x: auto;
+      }
+
+      #requests {
+        overflow-x: auto;
+      }
+
+      #config li > * {
+        display: inline;
+        margin-right: 3rem;
+      }
+
+      #config li {
+        padding: 0.5rem;
+      }
+
+      .popup {
+        margin-left: 10vw;
+        margin-right: 10vw;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        width: 75vw;
+
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        border-radius: 0.5rem;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        display: none;
+        background: #eee;
+        border: 1px solid black;
+      }
+
+      .popup pre {
+        overflow: scroll;
+        max-height: 90vh;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>.har API tree</h1>
+    <ol id="config">
+      <li>
+        <div>Select <i>.har</i> file(s):</div>
+        <input
+          id="files"
+          type="file"
+          name="filefield"
+          multiple="multiple"
+          onchange="showTree()"
+        />
+      </li>
+      <li>
+        <div>
+          <input id="search" />
+          <button onclick="search()">Search</button>
+        </div>
+        <div>or</div>
+        <button onclick="showChronological()">Show chronological</button>
+        <div>or</div>
+        <div>click on any tree item</div>
+      </li>
+      <li>
+        <div>Configure:</div>
+        <ul>
+          <li>
+            <div>
+              URL filter: <input id="baseURL" />
+              <button onclick="setBaseURL()">Set</button>
+            </div>
+          </li>
+          <!-- <li>
+                        <div>
+                            Search in only in request data: <input type="checkbox" id="searchInData" onchange="setSearchInData()" checked>
+                        </div>
+                    </li> -->
+        </ul>
+      </li>
+    </ol>
+
+    <table style="width: 100%">
+      <tr>
+        <td style="width: 30vw; background: #eee">
+          <pre id="tree"></pre>
+        </td>
+        <td id="requestDetails" style="width: 70vw; max-width: 70vw">
+          <pre id="requests"></pre>
+        </td>
+      </tr>
+    </table>
+
+    <div class="popup">
+      <span
+        class="close"
+        style="
+          display: block;
+          width: 100%;
+          font-size: 24pt;
+          font-weight: bold;
+          text-align: right;
+        "
+        onclick="hidePopup()"
+        >&times;</span
+      >
+      <div class="popup-content" style="width: 100%; height: 100%"></div>
+    </div>
+
+    <script src="./globals.js"></script>
+    <script src="./files.js"></script>
+    <script src="./tree.js"></script>
+    <script src="./requests.js"></script>
+    <script src="./search.js"></script>
+  </body>
+</html>
